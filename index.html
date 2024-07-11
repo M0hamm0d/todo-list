@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple counter app</title>
+    <link rel="stylesheet" href="asset/style/style.css">
+</head>
+<body>
+    <div class="todo-container">
+        <h1>
+            To Do App
+        </h1>
+        <div class="todo">
+            <p class="todo-no">0 of 0 remaining</p>
+            <button class="delete-btn" onclick="del()">
+                <img src="asset/images/svg/delete.svg" alt="">
+            </button>
+        </div>
+        <div class="enter-todo">
+            <input onkeydown="checkValue()" type="text" id="inp" placeholder="enter a new todo">
+            <button class="add-btn" onclick="add()">
+                <img src="asset/images/svg/add.svg" alt="">
+            </button>
+        </div>
+        <div class="my">
+        </div>
+    </div>
+    <script src="asset/js/index.js"></script>
+</body>
+</html>
