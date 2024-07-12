@@ -28,6 +28,9 @@ button{
     align-items: center;
     justify-content: center;
 }
+.input-check:checked + .button{
+    text-decoration: line-through;
+}
 .delete-btn{
     background-color: #1fb2ad;
     border: none;
@@ -87,8 +90,14 @@ input::placeholder{
     padding-top: 10px;
     width: 100%;
 }
-.my-to-do label{
+.my-to-do .button{
     width: 100%;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    color: white;
+    justify-content: left;
+    display: flex;
 }
 .sub-btn{
     background-color: transparent;

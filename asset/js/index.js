@@ -3,7 +3,7 @@ const toDo = document.querySelector('.to-do');
 let addBtn = document.querySelector('.add-btn');
 const todoNo = document.querySelector('.todo-no')
 const todoContainer = document.querySelector('.todo-container');
-const check = document.querySelector('#check')
+let my = document.querySelector('.my')
 function checkValue() {
     addBtn.style.backgroundColor = '#AD1F87'
     if (!input.value){
@@ -12,15 +12,25 @@ function checkValue() {
 }
 let todoList = [];
 
-renderTodoList()
-function renderTodoList(){
+// const checkbox = document.querySelector('.input-check');
+// function check() {
+//     if (checkbox.checked === true){
+//         checkbox.checked = false
+//         console.log('false'); 
+//     } else {
+//         checkbox.checked = true;
+//         console.log('true'); 
+//     }
+// };
+
+renderTodoList();
+function renderTodoList() {
     let todoListHTML = ''
     for (let i = 0; i < todoList.length; i++) {
-        const todo = todoList[i];
         const html = `
         <div class="my-to-do">
-            <input id="check" type="checkbox">
-            <label for="">${todo}</label>
+            <input onclick="check()" class="input-check" id="${todoList[i].slice(0, 3)}" type="checkbox">
+            <label class="button" for="${todoList[i].slice(0, 3)}"  id="">${todoList[i]}</label>
             <button class="sub-btn" onclick="todoList.splice(${i}, 1); renderTodoList(); sub()">
                 <img src="asset/images/svg/substract.svg" alt="">
             </button>
@@ -36,6 +46,23 @@ function add() {
     todoList.push(input.value);
     renderTodoList();
 };
+function check() {
+    //let innerText = document.querySelector('.button').innerHTML
+    let myTodo = document.getElementsByClassName('my-to-do')
+    for (let i = 0; i < myTodo.length; i++) {
+        const element = myTodo[i].children[0];
+        console.log(element);
+        if (element.checked === true){
+            //element.checked = false
+            console.log('true'); 
+        } else if (element.checked === false) {
+            //element.checked = true;
+            //el.style.textDecoration = 'line-through'
+            console.log('false'); 
+        }
+    }
+};
+
 function del() {
     todoList = [];
     document.querySelector('.my').innerHTML = '';
