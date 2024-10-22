@@ -48,14 +48,14 @@ function myTodo() {
   todoContainer.addEventListener("click", (e) => {
     if (
       e.target.classList.contains("input-check") &&
-      !e.target.classList.contains("hello")
+      !e.target.classList.contains("checked")
     ) {
-      e.target.classList.add("hello");
+      e.target.classList.add("checked");
       taskCount--;
       todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
-      console.log("hello");
-    } else if (e.target.classList.contains("hello")) {
-      e.target.classList.remove("hello");
+      console.log("checked");
+    } else if (e.target.classList.contains("checked")) {
+      e.target.classList.remove("checked");
       taskCount++;
       todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
     }
@@ -65,7 +65,7 @@ myTodo();
 function del() {
   todoList = [];
   todoContainer.innerHTML = "";
-  // document.querySelector(".my").innerHTML = "";
+  taskCount = 0;
   todoNo.innerHTML = `0 of 0 remaining`;
 }
 function sub() {
