@@ -1,75 +1,74 @@
-let input = document.querySelector('#inp');
-const toDo = document.querySelector('.to-do');
-let addBtn = document.querySelector('.add-btn');
-const todoNo = document.querySelector('.todo-no')
-const todoContainer = document.querySelector('.todo-container');
-let my = document.querySelector('.my')
+let input = document.querySelector("#inp");
+const toDo = document.querySelector(".to-do");
+let addBtn = document.querySelector(".add-btn");
+const todoNo = document.querySelector(".todo-no");
+const todoContainer = document.querySelector(".todo-container");
+let taskCount = 0;
+const countValue = document.querySelector(".count-value");
+const displayCount = (taskCount) => {
+  countValue.innerText = taskCount;
+};
 function checkValue() {
-    addBtn.style.backgroundColor = '#AD1F87'
-    if (!input.value){
-        addBtn.style.backgroundColor = ''
-    }
+  addBtn.style.backgroundColor = "#AD1F87";
+  if (input.value === "") {
+    addBtn.style.backgroundColor = "";
+  }
 }
 let todoList = [];
 
-// const checkbox = document.querySelector('.input-check');
-// function check() {
-//     if (checkbox.checked === true){
-//         checkbox.checked = false
-//         console.log('false'); 
-//     } else {
-//         checkbox.checked = true;
-//         console.log('true'); 
-//     }
-// };
-
 renderTodoList();
 function renderTodoList() {
-    let todoListHTML = ''
-    for (let i = 0; i < todoList.length; i++) {
-        const html = `
+  todoContainer.innerHTML = "";
+  todoList.forEach((task, i) => {
+    const html = `
         <div class="my-to-do">
-            <input onclick="check()" class="input-check" id="${todoList[i].slice(0, 3)}" type="checkbox">
-            <label class="button" for="${todoList[i].slice(0, 3)}"  id="">${todoList[i]}</label>
+            <input class="input-check" id="${task.text.slice(
+              0,
+              3
+            )}" type="checkbox">
+            <label class="button"  id="">${task.text}</label>
             <button class="sub-btn" onclick="todoList.splice(${i}, 1); renderTodoList(); sub()">
                 <img src="asset/images/svg/substract.svg" alt="">
             </button>
         </div>
         `;
-        todoListHTML+= html;
-        todoNo.innerHTML = `${todoList.length} of ${todoList.length} remaining`
-        input.value = '';
-    }
-    document.querySelector('.my').innerHTML = todoListHTML;
+    todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
+    todoContainer.insertAdjacentHTML("beforeend", html);
+  });
 }
+
 function add() {
-    todoList.push(input.value);
-    renderTodoList();
-};
-function check() {
-    //let innerText = document.querySelector('.button').innerHTML
-    let myTodo = document.getElementsByClassName('my-to-do')
-    for (let i = 0; i < myTodo.length; i++) {
-        const element = myTodo[i].children[0];
-        console.log(element);
-        if (element.checked === true){
-            //element.checked = false
-            console.log('true'); 
-        } else if (element.checked === false) {
-            //element.checked = true;
-            //el.style.textDecoration = 'line-through'
-            console.log('false'); 
-        }
+  todoList.push({ text: input.value, completed: "false" });
+  taskCount++;
+  renderTodoList();
+  input.value = "";
+  checkValue();
+}
+function myTodo() {
+  todoContainer.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("input-check") &&
+      !e.target.classList.contains("hello")
+    ) {
+      e.target.classList.add("hello");
+      taskCount--;
+      todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
+      console.log("hello");
+    } else if (e.target.classList.contains("hello")) {
+      e.target.classList.remove("hello");
+      taskCount++;
+      todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
     }
-};
-
+  });
+}
+myTodo();
 function del() {
-    todoList = [];
-    document.querySelector('.my').innerHTML = '';
-    todoNo.innerHTML = `0 of 0 remaining`
-};
+  todoList = [];
+  todoContainer.innerHTML = "";
+  // document.querySelector(".my").innerHTML = "";
+  todoNo.innerHTML = `0 of 0 remaining`;
+}
 function sub() {
-    todoNo.innerHTML = `${todoList.length} of ${todoList.length} remaining`
-};
-
-
+  taskCount--;
+  todoNo.innerHTML = `${taskCount} of ${todoList.length} remaining`;
+}
